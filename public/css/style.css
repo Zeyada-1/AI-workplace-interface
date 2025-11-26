@@ -1,0 +1,219 @@
+/* Basic styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+header h1 {
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+h2 {
+    color: #333;
+    margin-top: 0;
+}
+
+/* Search form */
+.search-form {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+}
+
+.search-form input[type="text"] {
+    width: 60%;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.search-form button {
+    padding: 8px 15px;
+    margin-left: 5px;
+}
+
+.clear-search {
+    margin-left: 10px;
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.clear-search:hover {
+    text-decoration: underline;
+}
+
+/* Projects list */
+.projects-grid {
+    margin-top: 20px;
+}
+
+.project-card {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.project-card h3 {
+    margin-top: 0;
+}
+
+.project-card a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.project-card a:hover {
+    text-decoration: underline;
+}
+
+.project-card p {
+    margin: 5px 0;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+textarea {
+    font-family: Arial, sans-serif;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0052a3;
+}
+
+.button-secondary {
+    background-color: #999;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.button-secondary:hover {
+    background-color: #777;
+}
+
+.delete-button {
+    background-color: #cc0000;
+}
+
+.delete-button:hover {
+    background-color: #990000;
+}
+
+/* Project details */
+.detail-section {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.detail-section p {
+    margin: 8px 0;
+}
+
+.notes-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.action-buttons {
+    margin-top: 20px;
+}
+
+.action-buttons form {
+    display: inline;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+.pagination a {
+    color: #0066cc;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
+
+.pagination span {
+    padding: 5px 10px;
+}
+
+.pagination .disabled {
+    color: #999;
+}
