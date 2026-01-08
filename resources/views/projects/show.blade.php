@@ -3,8 +3,22 @@
         <h2>{{$project->title}}</h2>
         
         <div class="detail-section">
-            <p><strong>Brand:</strong> {{$project->brand}}</p>
-            <p><strong>AI Tool:</strong> {{$project->ai_tool}}</p>
+            <p><strong>Brand:</strong> 
+                @if(is_object($project->brand))
+                    {{$project->brand->name}}
+                @else
+                    {{$project->brand}}
+                @endif
+            </p>
+            <p><strong>AI Tool:</strong> 
+                @if(is_object($project->tool))
+                    {{$project->tool->name}}
+                @elseif($project->ai_tool)
+                    {{$project->ai_tool}}
+                @else
+                    N/A
+                @endif
+            </p>
             <p><strong>Content Type:</strong> {{$project->content_type}}</p>
             <p><strong>Status:</strong> <span class="status-{{$project->status}}">{{$project->status}}</span></p>
             <p><strong>Priority:</strong> <span class="priority-{{$project->priority}}">{{$project->priority}}</span></p>

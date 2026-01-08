@@ -12,15 +12,11 @@
         </div>
 
         <div class="form-group">
-            <label for="ai_tool">AI Tool:</label>
-            <select id="ai_tool" name="ai_tool" required>
-                <option value="Midjourney" {{$project->ai_tool == 'Midjourney' ? 'selected' : ''}}>Midjourney</option>
-                <option value="Higgsfield" {{$project->ai_tool == 'Higgsfield' ? 'selected' : ''}}>Higgsfield</option>
-                <option value="Kling" {{$project->ai_tool == 'Kling' ? 'selected' : ''}}>Kling</option>
-                <option value="Google AI Studio" {{$project->ai_tool == 'Google AI Studio' ? 'selected' : ''}}>Google AI Studio</option>
-                <option value="DALL-E" {{$project->ai_tool == 'DALL-E' ? 'selected' : ''}}>DALL-E</option>
-                <option value="Runway" {{$project->ai_tool == 'Runway' ? 'selected' : ''}}>Runway</option>
-                <option value="Other" {{$project->ai_tool == 'Other' ? 'selected' : ''}}>Other</option>
+            <label for="tool_id">AI Tool:</label>
+            <select id="tool_id" name="tool_id" required>
+                @foreach($tools as $tool)
+                    <option value="{{$tool->id}}" {{$project->tool_id == $tool->id ? 'selected' : ''}}>{{$tool->name}}</option>
+                @endforeach
             </select>
         </div>
 
@@ -35,8 +31,12 @@
         </div>
 
         <div class="form-group">
-            <label for="brand">Brand:</label>
-            <input type="text" id="brand" name="brand" value="{{$project->brand}}" required>
+            <label for="brand_id">Brand:</label>
+            <select id="brand_id" name="brand_id" required>
+                @foreach($brands as $brand)
+                    <option value="{{$brand->id}}" {{$project->brand_id == $brand->id ? 'selected' : ''}}>{{$brand->name}}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="form-group">

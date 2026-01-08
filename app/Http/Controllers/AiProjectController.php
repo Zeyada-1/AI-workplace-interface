@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AiProject;
+use App\Models\Brand;
+use App\Models\Tool;
 
 class AiProjectController extends Controller
 {
@@ -25,20 +27,23 @@ class AiProjectController extends Controller
 
     function create()
     {
-        return view('projects.create');
+        $brands = Brand::orderBy('name')->get();
+        $tools = Tool::orderBy('name')->get();
+        return view('projects.create', compact('brands', 'tools'));
     }
 
     function store(Request $request)
     {
         $project = new AiProject();
         $project->title = $request->title;
-        $project->ai_tool = $request->ai_tool;
+        $project->tool_id = $request->tool_id;
         $project->content_type = $request->content_type;
-        $project->brand = $request->brand;
+        $project->brand_id = $request->brand_id;
         $project->status = $request->status;
         $project->priority = $request->priority;
         $project->deadline = $request->deadline;
         $project->notes = $request->notes;
+        $project->user_id = auth()->id(); // Assign logged-in user
         $project->save();
         return redirect('/projects');
     }
@@ -52,16 +57,30 @@ class AiProjectController extends Controller
     function edit($id)
     {
         $project = AiProject::find($id);
-        return view('projects.edit', ['project' => $project]);
+        
+        // Check if user owns this project (or is admin)
+        if (!auth()->user()->is_admin && $project->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+        
+        $brands = Brand::orderBy('name')->get();
+        $tools = Tool::orderBy('name')->get();
+        return view('projects.edit', compact('project', 'brands', 'tools'));
     }
 
     function update(Request $request)
     {
         $project = AiProject::find($request->id);
+        
+        // Check if user owns this project (or is admin)
+        if (!auth()->user()->is_admin && $project->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+        
         $project->title = $request->title;
-        $project->ai_tool = $request->ai_tool;
+        $project->tool_id = $request->tool_id;
         $project->content_type = $request->content_type;
-        $project->brand = $request->brand;
+        $project->brand_id = $request->brand_id;
         $project->status = $request->status;
         $project->priority = $request->priority;
         $project->deadline = $request->deadline;
@@ -73,6 +92,12 @@ class AiProjectController extends Controller
     function destroy(Request $request)
     {
         $project = AiProject::find($request->id);
+        
+        // Check if user owns this project (or is admin)
+        if (!auth()->user()->is_admin && $project->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+        
         $project->delete();
         return redirect('/projects');
     }

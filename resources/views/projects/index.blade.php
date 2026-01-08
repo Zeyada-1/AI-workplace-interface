@@ -1,5 +1,5 @@
 <x-layout title="All Projects">
-    <h2>AI Creative Projects</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">AI Creative Projects</h2>
     
     <form method="GET" action="/projects" class="search-form">
         <input type="text" name="search" placeholder="Search by title, brand, or tool..." value="{{ request('search') }}">
@@ -18,8 +18,22 @@
                         {{$project->title}}
                     </a>
                 </h3>
-                <p><strong>Brand:</strong> {{$project->brand}}</p>
-                <p><strong>Tool:</strong> {{$project->ai_tool}}</p>
+                <p><strong>Brand:</strong> 
+                    @if(is_object($project->brand))
+                        {{$project->brand->name}}
+                    @else
+                        {{$project->brand}}
+                    @endif
+                </p>
+                <p><strong>Tool:</strong> 
+                    @if(is_object($project->tool))
+                        {{$project->tool->name}}
+                    @elseif($project->ai_tool)
+                        {{$project->ai_tool}}
+                    @else
+                        N/A
+                    @endif
+                </p>
                 <p><strong>Type:</strong> {{$project->content_type}}</p>
                 <p><strong>Status:</strong> <span class="status-{{$project->status}}">{{$project->status}}</span></p>
                 <p><strong>Priority:</strong> <span class="priority-{{$project->priority}}">{{$project->priority}}</span></p>

@@ -9,16 +9,12 @@
         </div>
 
         <div class="form-group">
-            <label for="ai_tool">AI Tool:</label>
-            <select id="ai_tool" name="ai_tool" required>
+            <label for="tool_id">AI Tool:</label>
+            <select id="tool_id" name="tool_id" required>
                 <option value="">Select a tool...</option>
-                <option value="Midjourney">Midjourney</option>
-                <option value="Higgsfield">Higgsfield</option>
-                <option value="Kling">Kling</option>
-                <option value="Google AI Studio">Google AI Studio</option>
-                <option value="DALL-E">DALL-E</option>
-                <option value="Runway">Runway</option>
-                <option value="Other">Other</option>
+                @foreach($tools as $tool)
+                    <option value="{{$tool->id}}">{{$tool->name}}</option>
+                @endforeach
             </select>
         </div>
 
@@ -34,8 +30,13 @@
         </div>
 
         <div class="form-group">
-            <label for="brand">Brand:</label>
-            <input type="text" id="brand" name="brand" required>
+            <label for="brand_id">Brand:</label>
+            <select id="brand_id" name="brand_id" required>
+                <option value="">Select a brand...</option>
+                @foreach($brands as $brand)
+                    <option value="{{$brand->id}}">{{$brand->name}}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="form-group">
