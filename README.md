@@ -61,17 +61,19 @@ export default defineConfig({
 });
 ```
 
-The reason i chose this approach is because Tailwind conviniently provides utility classes such as `bg-white`, `p-6`, `rounded-lg` that I directly use in HTML, Which is more efficient that using custom CSS for every element. this gurantees  consistent spacing and colors. The `@layer` directive organizes custom styles while keeping Tailwind's benefits.
+The reason I chose this approach is because Tailwind conviniently provides utility classes such as `bg-white`, `p-6`, `rounded-lg` that I directly use in HTML, Which is more efficient that using custom CSS for every element. this gurantees  consistent spacing and colors everywhere it's used.
 
-**Where used:** Responsive navigation, project cards with shadows and hover effects, form focus states, color-coded status badges, and responsive grid (1 column mobile, 2 tablet, 3 desktop).
-
-**Limitation:** HTML can get cluttered with utility classes and there's a learning curve initially.
+**Where used:** 
+* form focus states
+* Responsive navigation 
+* color-coded status badges
+* project cards with shadows and hover effects
 
 ---
 
 ### 2. User Authentication with Laravel Breeze
 
-I added authentication so multiple people can use the system with each person seeing only their own projects.
+Adding authentication was crucial to allow multiple users to access only their projects and edit them.
 
 ```php
 Route::middleware('auth')->group(function () {
@@ -85,17 +87,19 @@ Route::middleware('auth')->group(function () {
 @endauth
 ```
 
-**Why I chose this:** Building secure authentication from scratch would take weeks and risk security mistakes. Laravel Breeze handles password hashing, session management, and CSRF protection automatically. It's lightweight and perfect for this assignment.
+**Why I chose this:** Laravel Breeze automatically adds essential tasks that would usually take a long time to integrate such as session management, password hashing for security, and adds CSRF protection automatically. I thought it would be perfectly for this assignemnt.
 
-**Where used:** Login/registration pages, protected create/edit/delete routes, different navigation for authenticated vs guest users, and user-specific dashboard.
-
-**Limitation:** Breeze adds many files which can be overwhelming, and it overwrote some routes during installation requiring manual restoration.
+**Where used:** 
+* protected create/edit/delete routes
+* Login/registration pages
+* different navigation UI for authenticated and guest users
+* user-exclusive dashboard
 
 ---
 
 ### 3. Authorization and Admin System
 
-I implemented ownership-based authorization so users can only edit their own projects, unless they're an admin.
+I added ownership-based authorization so you can only edit your own projects unless you're an admin which adds hierarchy levels which is necessary with a web-application such as ours.
 
 ```php
 $table->foreignId('user_id')->constrained();
@@ -108,17 +112,19 @@ public function edit($id) {
 }
 ```
 
-**Why I chose this:** Multi-user systems need to prevent users from editing each other's data. Checking ownership (`user_id`) is the simplest approach. The admin flag lets certain users manage all projects without restrictions.
+**Why I chose this:** Multi-user systems is essential to prevent normal/users with no authaurity from editing each other's data. validating ownership using(`user_id`) was the simplest and most suitable approach I found. The admin flag allows certain users (Admins) manage all projects without restrictions such as editing and deleting projects.
 
-**Where used:** Edit/update/delete operations check ownership, edit/delete buttons only show for owners, admin panel link only for admins, and admins can edit all projects.
-
-**Limitation:** Simple two-level system (admin or regular user). Bigger apps need more roles like moderator, viewer, editor. No audit log tracking changes.
+**Where used:** 
+* Edit/update/delete operations check ownership
+* edit/delete buttons only show for admins
+* admin panel link only accesible for admins
+* admins abillity to edit all projects.
 
 ---
 
 ### 4. Database Relationships
 
-I normalized the database by creating separate tables for brands and tools instead of storing names as plain text like in Assignment 1.
+I made separate tables for brands and tools to normalize the database instead of using plain text for storing names like I did for Assignment 1.
 
 ```php
 public function brand() {
@@ -130,17 +136,18 @@ $projects = AiProject::with(['user', 'brand', 'tool'])->paginate(9);
 
 **Database structure:** `users`, `ai_projects` (with foreign keys: user_id, brand_id, tool_id), `brands`, and `tools` tables.
 
-**Why I chose this:** Normalization prevents duplicate data and inconsistencies. If I spelled "Nike" differently in projects, searching would be difficult. With separate brands table, each brand exists once and projects reference it. Changing "Nike" to "Nike Inc" updates everywhere automatically.
+**Why I chose this:**  A common error like If I spelled "Nike" differently in projects, searching would be very hard. Integrating Normalization prevents common problems such as duplicate data and inconsistencies.  With a table seperate for brands, each brand exists once and projects reference it. Changing "Addidas" to "Addidas Inc" will update everywhere with needing me to manually change it.
 
-**Where used:** Dropdown menus in forms populated from brands/tools tables, project display shows related names, easy queries like "projects per brand", and eager loading prevents performance issues.
-
-**Limitation:** Can't add brands/tools through web interface - requires migrations. Had to handle backward compatibility for old text-based data.
+**Where used:** 
+* Dropdown menus
+* project display shows related names
+* easy queries like "projects per brand"
 
 ---
 
 ### 5. Admin Panel
 
-I created a web interface where admins can manage user permissions without database access.
+This section was created to allow admins to view user permissions without having to go through the database.
 
 ```php
 public function toggleAdmin(User $user) {
@@ -152,11 +159,12 @@ public function toggleAdmin(User $user) {
 }
 ```
 
-**Why I chose this:** Managing users through SQL or command line is tedious and error-prone. A web interface makes it easy and safe. Validation prevents admins from accidentally removing their own access.
+**Why I chose this:** Managing users through SQL is a tedious process and is prone to errors. Integrating the web interface made it easier and more accessible for users who don't have access to the database. Validation is used to prevent admins from accidentally removing their own permissions.
 
-**Where used:** Admin Panel link in navigation (admins only), `/admin/users` page lists users with project counts, toggle buttons for admin privileges, and flash messages confirm actions.
-
-**Limitation:** No logging of permission changes, only binary admin status without fine-grained permissions, and no bulk-edit capability.
+**Where used:** 
+* Admin Panel link in navigation (admins only)
+* `/admin/users` page lists users with project counts
+* toggle buttons for admin privileges
 
 ---
 
@@ -167,16 +175,4 @@ public function toggleAdmin(User $user) {
 **brands:** id, name  
 **tools:** id, name
 
-Migrations in `database/migrations/`, seeders in `database/seeders/`.
-
 ---
-
-## Other Features
-
-**Search** - Filter projects by title, brand, or tool  
-**Pagination** - 9 projects per page with navigation  
-**Responsive Design** - Adapts to different screen sizes
-
----
-
-**Developed by Ahmed for CHT2520 Web Development, January 2026**
