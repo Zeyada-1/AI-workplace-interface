@@ -4,9 +4,11 @@
 
 This web app was designed for the purpose of helping me manage my AI generations and visuals for the many clothing brands I work with. I needed a web page/system to help me store and keep track of the projects that I am working on. This helps me be more efficient and ensures that I can store important data for each client that I work with. I use many tools such as Higgsfield, Midjourney, Kling, Google AI studios, Weavy AI, topview AI, and this system help me keep track of which tool i have used for each client with make the process of changing anything in the future much easier for me.
 
-This system also stores the content type, assosiated brand, status, priority levels, and comments about the brand's creative direction. Having them all in one place allows me to neatly organize my AI-enerated materials.
+This system also stores the content type, assosiated brand, status, priority levels, and comments about the brand's creative direction. Having them all in one place allows me to neatly organize my AI-enerated materials.  
+
 
 For assignemnt 2, I enhanced the system by adding advanced user authentication allowing multiple users to have to have accounts, I also improved the styling using Tailwind CSS, integrated database relationships making the dataabse more organized. I also added an admin panel for hierarchy and account previliges for users, these changes were necessary.
+
 ---
 
 ## Installation
