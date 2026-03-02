@@ -1,4 +1,4 @@
-# AI Creative Project Tracker - Assignment 2
+# AI Creative Project Tracker 
 
 ## Project Overview
 
